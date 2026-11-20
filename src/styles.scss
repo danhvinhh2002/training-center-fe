@@ -1,0 +1,136 @@
+/* ==========================================================================
+   DESIGN TOKENS & SYSTEM VARIABLES (NG-ZORRO THEME FOR LANGUAGE CENTER)
+   ========================================================================== */
+@import "ng-zorro-antd/ng-zorro-antd.min.css";
+
+:root {
+  /* Brand & Primary Palette */
+  --color-primary: #1890ff;          /* Ant Design Primary Blue */
+  --color-primary-hover: #40a9ff;
+  --color-primary-light: #e6f7ff;
+  --color-secondary: #001529;        /* Ant Sider Dark Blue */
+  --color-accent: #13c2c2;           /* Cyan / Teal Accent */
+
+  /* Neutrals & Surfaces */
+  --color-bg-app: #f0f2f5;           /* Clean canvas background */
+  --color-surface: #ffffff;
+  --color-border: #f0f0f0;
+  --color-text-main: rgba(0, 0, 0, 0.85);
+  --color-text-secondary: rgba(0, 0, 0, 0.45);
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}
+
+/* Base Reset & Typography */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  background-color: var(--color-bg-app);
+  color: var(--color-text-main);
+  font-size: 14px;
+  line-height: 1.5715;
+}
+
+/* App Header Reset */
+.ant-layout-header.app-header {
+  padding: 0 !important;
+  height: 64px !important;
+  line-height: normal !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Page Container Styles */
+.page-container {
+  padding: 24px;
+  background-color: transparent;
+  min-height: 100%;
+}
+
+.page-header {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  .page-title {
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.85);
+      margin: 0 0 4px 0;
+    }
+    p {
+      color: rgba(0, 0, 0, 0.45);
+      margin: 0;
+      font-size: 13px;
+    }
+  }
+
+  .page-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+}
+
+/* Filter Card */
+.filter-card {
+  background: #ffffff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+/* Data Table Card */
+.table-card {
+  background: #ffffff;
+  border-radius: 6px;
+  padding: 20px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+/* Table Actions Column */
+.table-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  a {
+    font-size: 13px;
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #bfbfbf;
+}

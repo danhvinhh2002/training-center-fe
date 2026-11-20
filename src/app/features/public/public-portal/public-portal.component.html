@@ -1,0 +1,727 @@
+<div class="portal-wrapper">
+  <!-- 1. HEADER / NAVBAR -->
+  <header class="portal-header">
+    <div class="container header-container">
+      <div class="brand-logo" routerLink="/portal">
+        <div class="logo-icon">
+          <span nz-icon nzType="book" nzTheme="outline"></span>
+        </div>
+        <div class="logo-text">
+          <span class="brand-title">TRUNG TÂM ĐÀO TẠO</span>
+          <span class="brand-subtitle">Smart Training Center</span>
+        </div>
+      </div>
+
+      <nav class="portal-nav">
+        <button type="button" (click)="scrollToCourses($event)" class="nav-btn">Khóa học</button>
+        <button type="button" (click)="scrollToBenefits($event)" class="nav-btn">Lợi ích</button>
+        <button type="button" (click)="scrollToRegister($event)" class="nav-btn">Đăng ký nhập học</button>
+        <a href="https://t.me/VinhndBOT" target="_blank" class="nav-item telegram-nav">
+          <span class="tg-dot"></span> Bot Telegram & AI
+        </a>
+      </nav>
+
+      <div class="header-actions">
+        <button nz-button nzType="primary" (click)="scrollToRegister()" class="cta-header-btn">
+          <span nz-icon nzType="check-circle" nzTheme="outline"></span> Đăng ký ngay
+        </button>
+        <button nz-button nzType="default" routerLink="/auth/login" class="login-header-btn">
+          <span nz-icon nzType="user" nzTheme="outline"></span> Đăng nhập
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. HERO SECTION -->
+  <section class="hero-section">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span>🚀 Tuyển sinh các khóa học chất lượng cao 2026</span>
+        </div>
+        <h1 class="hero-title">
+          Nâng Tầm Kỹ Năng - <br>
+          <span class="text-gradient">Bứt Phá Tương Lai Nghề Nghiệp</span>
+        </h1>
+        <p class="hero-desc">
+          Chương trình đào tạo thực chiến từ cơ bản đến chuyên sâu. Đội ngũ giảng viên tận tâm, 
+          môi trường học tập hiện đại kết hợp hệ thống Trợ lý AI và nhắc lịch học tự động qua Telegram.
+        </p>
+
+        <div class="hero-buttons">
+          <button nz-button nzType="primary" nzSize="large" (click)="scrollToCourses()" class="hero-cta-btn">
+            Khám phá khóa học <span nz-icon nzType="book" nzTheme="outline"></span>
+          </button>
+          <button nz-button nzType="default" nzSize="large" (click)="scrollToRegister()" class="hero-secondary-btn">
+            Đăng ký tư vấn miễn phí
+          </button>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">Giảng viên Chuyên gia</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">80%</span>
+            <span class="stat-label">Thực hành Dự án</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">24/7</span>
+            <span class="stat-label">Hỗ trợ AI & Telegram Bot</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-banner-card">
+        <div class="glass-card">
+          <div class="card-icon-top">
+            <span nz-icon nzType="schedule" nzTheme="outline"></span>
+          </div>
+          <h3>Đào Tạo Thông Minh</h3>
+          <p>Hệ thống tự động thông báo lịch học, cảnh báo chuyên cần và hỗ trợ học vụ qua Telegram Bot & AI.</p>
+          <div class="quick-pill">
+            <span nz-icon nzType="check" nzTheme="outline"></span> Điểm danh số hóa 1 chạm
+          </div>
+          <div class="quick-pill">
+            <span nz-icon nzType="check" nzTheme="outline"></span> Chatbot giải đáp học vụ tức thì
+          </div>
+          <div class="quick-pill">
+            <span nz-icon nzType="check" nzTheme="outline"></span> Cam kết chuẩn đầu ra doanh nghiệp
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. FEATURED COURSES SECTION -->
+  <section id="courses-section" class="courses-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">DANH MỤC ĐÀO TẠO</span>
+        <h2 class="section-title">Các Khóa Học Đang Mở Đăng Ký</h2>
+        <p class="section-subtitle">
+          Chọn khóa học phù hợp với định hướng và trình độ của bạn để bắt đầu hành trình ngay hôm nay
+        </p>
+      </div>
+
+      <!-- Filters & Search Bar -->
+      <div class="courses-filter-bar">
+        <div class="level-tabs">
+          <button 
+            type="button"
+            class="filter-tab-btn" 
+            [class.active]="selectedLevel === 'ALL'" 
+            (click)="onLevelChange('ALL')">
+            Tất cả ({{ courses.length }})
+          </button>
+          <button 
+            type="button"
+            class="filter-tab-btn" 
+            [class.active]="selectedLevel === 'BEGINNER'" 
+            (click)="onLevelChange('BEGINNER')">
+            Cơ bản
+          </button>
+          <button 
+            type="button"
+            class="filter-tab-btn" 
+            [class.active]="selectedLevel === 'INTERMEDIATE'" 
+            (click)="onLevelChange('INTERMEDIATE')">
+            Trung cấp
+          </button>
+          <button 
+            type="button"
+            class="filter-tab-btn" 
+            [class.active]="selectedLevel === 'ADVANCED'" 
+            (click)="onLevelChange('ADVANCED')">
+            Nâng cao
+          </button>
+        </div>
+
+        <div class="search-input-wrapper">
+          <nz-input-group [nzPrefix]="searchIcon" class="search-group">
+            <input 
+              type="text" 
+              nz-input 
+              [(ngModel)]="searchKeyword" 
+              (ngModelChange)="onSearchChange()" 
+              placeholder="Tìm kiếm theo tên khóa, mã khóa học..." 
+            />
+          </nz-input-group>
+          <ng-template #searchIcon><span nz-icon nzType="search"></span></ng-template>
+        </div>
+      </div>
+
+      <!-- Course Cards Grid -->
+      <nz-spin [nzSpinning]="loadingCourses" nzTip="Đang tải danh sách khóa học...">
+        <div class="courses-grid" *ngIf="filteredCourses.length > 0; else noCourses">
+          <div class="course-card" *ngFor="let course of filteredCourses">
+            <div class="course-card-top">
+              <span class="course-code-badge">{{ course.courseCode }}</span>
+              <nz-tag [nzColor]="getLevelColor(course.level)">{{ getLevelLabel(course.level) }}</nz-tag>
+            </div>
+
+            <h3 class="course-title">{{ course.name }}</h3>
+
+            <p class="course-description">
+              {{ course.description || 'Chương trình đào tạo toàn diện, cung cấp kiến thức nền tảng và kỹ năng thực chiến vững vàng cho học viên.' }}
+            </p>
+
+            <div class="course-meta">
+              <div class="meta-item">
+                <span nz-icon nzType="schedule" nzTheme="outline"></span>
+                <span>{{ course.totalHours }} giờ đào tạo</span>
+              </div>
+              <div class="meta-item">
+                <span nz-icon nzType="book" nzTheme="outline"></span>
+                <span>{{ course.totalLessons }} buổi học</span>
+              </div>
+            </div>
+
+            <div class="course-card-footer">
+              <div class="course-fee">
+                <span class="fee-label">Học phí niêm yết:</span>
+                <span class="fee-amount">{{ formatCurrency(course.standardFee) }}</span>
+              </div>
+
+              <div class="card-action-btns">
+                <button nz-button nzType="text" (click)="viewCourseDetail(course)" class="detail-btn">
+                  Chi tiết
+                </button>
+                <button nz-button nzType="primary" (click)="selectCourse(course)" class="select-btn">
+                  Đăng ký <span nz-icon nzType="check-circle" nzTheme="outline"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #noCourses>
+          <div class="empty-courses">
+            <span nz-icon nzType="book" class="empty-icon"></span>
+            <h3>Không tìm thấy khóa học phù hợp</h3>
+            <p>Vui lòng thử tìm kiếm với từ khóa khác hoặc chuyển sang danh mục Tất cả.</p>
+            <button nz-button nzType="primary" (click)="selectedLevel = 'ALL'; searchKeyword = ''; applyFilter()">
+              Xem tất cả khóa học
+            </button>
+          </div>
+        </ng-template>
+      </nz-spin>
+    </div>
+  </section>
+
+  <!-- 4. BENEFITS SECTION -->
+  <section id="benefits-section" class="benefits-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">ƯU ĐIỂM VƯỢT TRỘI</span>
+        <h2 class="section-title">Tại Sao Nên Học Tại Trung Tâm?</h2>
+        <p class="section-subtitle">Môi trường đào tạo ứng dụng công nghệ cao giúp bạn tiết kiệm thời gian và tối ưu hiệu quả</p>
+      </div>
+
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="b-icon-wrap icon-blue">
+            <span nz-icon nzType="team" nzTheme="outline"></span>
+          </div>
+          <h3>Giảng Viên Chuyên Nghiệp</h3>
+          <p>100% Giảng viên có kinh nghiệm thực chiến từ 5 năm tại các doanh nghiệp và tập đoàn công nghệ lớn.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="b-icon-wrap icon-green">
+            <span nz-icon nzType="schedule" nzTheme="outline"></span>
+          </div>
+          <h3>Lịch Học & Điểm Danh Số Hóa</h3>
+          <p>Nhận thông báo lịch học, phòng học và ca học tự động trước mỗi buổi học qua Telegram và Email riêng tư.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="b-icon-wrap icon-purple">
+            <span nz-icon nzType="bell" nzTheme="outline"></span>
+          </div>
+          <h3>Trợ Lý AI Trực Tuyến 24/7</h3>
+          <p>Tích hợp AI Assistant trực tiếp trên Telegram (&#64;VinhndBOT) giải đáp mọi thắc mắc học vụ bất kỳ lúc nào.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="b-icon-wrap icon-orange">
+            <span nz-icon nzType="check-circle" nzTheme="outline"></span>
+          </div>
+          <h3>Chứng Chỉ & Hỗ Trợ Việc Làm</h3>
+          <p>Cấp chứng chỉ hoàn thành khóa học đạt chuẩn, hỗ trợ chỉnh sửa CV và kết nối phỏng vấn với các đối tác tuyển dụng.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. REGISTRATION FORM SECTION -->
+  <section id="register-section" class="register-section">
+    <div class="container">
+      <div class="register-layout">
+        <!-- Left Banner Info -->
+        <div class="register-info-panel">
+          <span class="badge-sub">ĐĂNG KÝ TRỰC TUYẾN</span>
+          <h2>Gửi Thông Tin Đăng Ký Khóa Học</h2>
+          <p class="desc-text">
+            Chỉ mất 1 phút để đăng ký. Bộ phận tư vấn tuyển sinh của Trung tâm sẽ liên hệ với bạn qua Điện thoại / Email 
+            trong vòng 24 giờ để xác nhận thông tin và tư vấn xếp lớp phù hợp nhất.
+          </p>
+
+          <div class="info-checklist">
+            <div class="check-item">
+              <span nz-icon nzType="check-circle" class="check-icon"></span>
+              <div>
+                <strong>Tư vấn lộ trình miễn phí:</strong> Định hướng học tập phù hợp theo mục tiêu công việc của bạn.
+              </div>
+            </div>
+            <div class="check-item">
+              <span nz-icon nzType="check-circle" class="check-icon"></span>
+              <div>
+                <strong>Ưu đãi học phí đăng ký sớm:</strong> Hỗ trợ trả góp hoặc giảm học phí cho nhóm học viên.
+              </div>
+            </div>
+            <div class="check-item">
+              <span nz-icon nzType="check-circle" class="check-icon"></span>
+              <div>
+                <strong>Tự động gửi thông báo qua Telegram:</strong> Nhận tin nhắn xác nhận và lịch học ngay trên điện thoại.
+              </div>
+            </div>
+          </div>
+
+          <!-- Telegram Bot Promo Card -->
+          <div class="telegram-promo-box">
+            <div class="tg-icon">
+              <span nz-icon nzType="bell" nzTheme="outline"></span>
+            </div>
+            <div class="tg-info">
+              <h4>Nhận Chat ID Telegram để được báo lịch:</h4>
+              <p>Mở Telegram tìm bot <b>&#64;VinhndBOT</b> và nhấn <b>/start</b>, bot sẽ gửi cho bạn Chat ID để điền vào form bên cạnh!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Form Card -->
+        <div class="register-form-card">
+          <div class="form-card-header">
+            <h3>Phiếu Đăng Ký Nhập Học</h3>
+            <p>Vui lòng điền thông tin liên hệ chính xác</p>
+          </div>
+
+          <form nz-form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
+            <!-- Khóa học quan tâm -->
+            <nz-form-item>
+              <nz-form-label nzRequired>Khóa học bạn muốn đăng ký</nz-form-label>
+              <nz-form-control nzErrorTip="Vui lòng chọn một khóa học!">
+                <nz-select 
+                  formControlName="courseId" 
+                  nzPlaceHolder="-- Chọn khóa học bạn quan tâm --"
+                  nzSize="large"
+                  nzShowSearch>
+                  <nz-option 
+                    *ngFor="let c of courses" 
+                    [nzValue]="c.id" 
+                    [nzLabel]="c.name + ' (' + formatCurrency(c.standardFee) + ')'">
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+
+            <div nz-row [nzGutter]="16">
+              <!-- Họ và tên -->
+              <div nz-col [nzXs]="24" [nzSm]="12">
+                <nz-form-item>
+                  <nz-form-label nzRequired>Họ và tên học viên</nz-form-label>
+                  <nz-form-control nzErrorTip="Vui lòng nhập họ và tên (tối thiểu 2 ký tự)!">
+                    <nz-input-group [nzPrefix]="userIcon" nzSize="large">
+                      <input type="text" nz-input formControlName="fullName" placeholder="Ví dụ: Nguyễn Văn A" />
+                    </nz-input-group>
+                    <ng-template #userIcon><span nz-icon nzType="user"></span></ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+
+              <!-- Số điện thoại -->
+              <div nz-col [nzXs]="24" [nzSm]="12">
+                <nz-form-item>
+                  <nz-form-label nzRequired>Số điện thoại liên hệ</nz-form-label>
+                  <nz-form-control nzErrorTip="Số điện thoại không hợp lệ (10 số, bắt đầu bằng 0)!">
+                    <nz-input-group [nzPrefix]="phoneIcon" nzSize="large">
+                      <input type="tel" nz-input formControlName="phone" placeholder="Ví dụ: 0912345678" />
+                    </nz-input-group>
+                    <ng-template #phoneIcon><span nz-icon nzType="phone"></span></ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+
+            <div nz-row [nzGutter]="16">
+              <!-- Email -->
+              <div nz-col [nzXs]="24" [nzSm]="14">
+                <nz-form-item>
+                  <nz-form-label nzRequired>Email</nz-form-label>
+                  <nz-form-control nzErrorTip="Vui lòng nhập đúng định dạng email!">
+                    <nz-input-group [nzPrefix]="mailIcon" nzSize="large">
+                      <input type="email" nz-input formControlName="email" placeholder="email@example.com" />
+                    </nz-input-group>
+                    <ng-template #mailIcon><span nz-icon nzType="mail"></span></ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+
+              <!-- Giới tính -->
+              <div nz-col [nzXs]="24" [nzSm]="10">
+                <nz-form-item>
+                  <nz-form-label>Giới tính</nz-form-label>
+                  <nz-form-control>
+                    <nz-select formControlName="gender" nzSize="large">
+                      <nz-option nzValue="MALE" nzLabel="Nam"></nz-option>
+                      <nz-option nzValue="FEMALE" nzLabel="Nữ"></nz-option>
+                      <nz-option nzValue="OTHER" nzLabel="Khác"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+
+            <div nz-row [nzGutter]="16">
+              <!-- Ngày sinh -->
+              <div nz-col [nzXs]="24" [nzSm]="12">
+                <nz-form-item>
+                  <nz-form-label>Ngày sinh (nếu có)</nz-form-label>
+                  <nz-form-control>
+                    <nz-date-picker 
+                      formControlName="dateOfBirth" 
+                      nzFormat="dd/MM/yyyy" 
+                      nzSize="large" 
+                      style="width: 100%;" 
+                      nzPlaceHolder="Chọn ngày sinh">
+                    </nz-date-picker>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+
+              <!-- Telegram Chat ID -->
+              <div nz-col [nzXs]="24" [nzSm]="12">
+                <nz-form-item>
+                  <nz-form-label>
+                    Telegram Chat ID
+                    <span class="optional-hint">(Để nhận lịch học riêng)</span>
+                  </nz-form-label>
+                  <nz-form-control>
+                    <nz-input-group [nzPrefix]="tgIcon" nzSize="large">
+                      <input type="text" nz-input formControlName="telegramChatId" placeholder="Ví dụ: 5453113922" />
+                    </nz-input-group>
+                    <ng-template #tgIcon><span nz-icon nzType="bell"></span></ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+
+            <!-- Địa chỉ -->
+            <nz-form-item>
+              <nz-form-label>Địa chỉ hiện tại</nz-form-label>
+              <nz-form-control>
+                <input type="text" nz-input formControlName="address" nzSize="large" placeholder="Quận/Huyện, Tỉnh/Thành phố" />
+              </nz-form-control>
+            </nz-form-item>
+
+            <!-- Ghi chú / Lời nhắn -->
+            <nz-form-item>
+              <nz-form-label>Ghi chú hoặc mong muốn của bạn</nz-form-label>
+              <nz-form-control>
+                <textarea 
+                  nz-input 
+                  formControlName="notes" 
+                  rows="3" 
+                  placeholder="Ví dụ: Mong muốn học lớp buổi tối, cần tư vấn thêm về học phí hoặc trả góp...">
+                </textarea>
+              </nz-form-control>
+            </nz-form-item>
+
+            <button 
+              nz-button 
+              nzType="primary" 
+              nzSize="large" 
+              nzBlock 
+              [nzLoading]="isSubmitting" 
+              class="submit-registration-btn">
+              <span nz-icon nzType="check-circle" nzTheme="outline"></span> Gửi Thông Tin Đăng Ký Ngay
+            </button>
+            <p class="privacy-note">
+              🔒 Chúng tôi cam kết bảo mật 100% thông tin cá nhân của bạn theo quy định.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. MODAL CHI TIẾT KHÓA HỌC -->
+  <nz-modal 
+    [(nzVisible)]="detailModalVisible" 
+    [nzTitle]="modalTitleTpl" 
+    [nzFooter]="modalFooterTpl" 
+    (nzOnCancel)="closeDetailModal()"
+    [nzWidth]="680">
+    <ng-container *nzModalContent>
+      <div *ngIf="selectedCourseForDetail" class="course-detail-content">
+        <div class="detail-header-tags">
+          <span class="course-code-badge">{{ selectedCourseForDetail.courseCode }}</span>
+          <nz-tag [nzColor]="getLevelColor(selectedCourseForDetail.level)">
+            {{ getLevelLabel(selectedCourseForDetail.level) }}
+          </nz-tag>
+        </div>
+
+        <h2 class="detail-name">{{ selectedCourseForDetail.name }}</h2>
+
+        <div class="detail-stat-row">
+          <div class="stat-box">
+            <span class="box-label">Thời lượng:</span>
+            <span class="box-val">{{ selectedCourseForDetail.totalHours }} giờ</span>
+          </div>
+          <div class="stat-box">
+            <span class="box-label">Số buổi học:</span>
+            <span class="box-val">{{ selectedCourseForDetail.totalLessons }} buổi</span>
+          </div>
+          <div class="stat-box highlight">
+            <span class="box-label">Học phí chuẩn:</span>
+            <span class="box-val price">{{ formatCurrency(selectedCourseForDetail.standardFee) }}</span>
+          </div>
+        </div>
+
+        <nz-divider nzText="Mô tả & Mục tiêu khóa học" nzOrientation="left"></nz-divider>
+        <p class="detail-description">
+          {{ selectedCourseForDetail.description || 'Khóa học được thiết kế sát với yêu cầu thực tế của doanh nghiệp, giúp học viên trang bị kiến thức vững vàng từ cơ bản đến nâng cao.' }}
+        </p>
+
+        <nz-divider nzText="Quyền lợi học viên" nzOrientation="left"></nz-divider>
+        <ul class="detail-benefits-list">
+          <li>Được cung cấp đầy đủ tài liệu, slide bài giảng và source code mẫu.</li>
+          <li>Thực hành trực tiếp trên các bài toán và dự án thực tế.</li>
+          <li>Nhận thông báo nhắc lịch học, bài tập qua Telegram Bot và Email cá nhân.</li>
+          <li>Cấp chứng chỉ tốt nghiệp và hỗ trợ kết nối việc làm với các doanh nghiệp đối tác.</li>
+        </ul>
+      </div>
+    </ng-container>
+
+    <ng-template #modalTitleTpl>
+      <span>Thông Tin Chi Tiết Khóa Học</span>
+    </ng-template>
+
+    <ng-template #modalFooterTpl>
+      <button nz-button nzType="default" (click)="closeDetailModal()">Đóng</button>
+      <button nz-button nzType="primary" (click)="enrollFromDetailModal()">
+        <span nz-icon nzType="check-circle"></span> Đăng ký khóa này
+      </button>
+    </ng-template>
+  </nz-modal>
+
+  <!-- 7. MODAL ĐĂNG KÝ THÀNH CÔNG -->
+  <nz-modal 
+    [(nzVisible)]="successModalVisible" 
+    [nzTitle]="noTitleTpl" 
+    [nzFooter]="null" 
+    (nzOnCancel)="closeSuccessModal()"
+    [nzWidth]="550">
+    <ng-template #noTitleTpl></ng-template>
+    <ng-container *nzModalContent>
+      <div class="success-modal-content" *ngIf="registrationResult">
+        <div class="success-icon-wrap">
+          <span nz-icon nzType="check-circle" nzTheme="outline"></span>
+        </div>
+
+        <h2>Đăng Ký Thành Công!</h2>
+        <p class="success-subtitle">{{ registrationResult.message }}</p>
+
+        <div class="registration-receipt">
+          <div class="receipt-row">
+            <span class="r-label">Mã đăng ký hồ sơ:</span>
+            <span class="r-value code">{{ registrationResult.enrollmentCode }}</span>
+          </div>
+          <div class="receipt-row">
+            <span class="r-label">Mã học viên:</span>
+            <span class="r-value code">{{ registrationResult.studentCode }}</span>
+          </div>
+          <div class="receipt-row">
+            <span class="r-label">Họ và tên:</span>
+            <span class="r-value">{{ registrationResult.fullName }}</span>
+          </div>
+          <div class="receipt-row">
+            <span class="r-label">Khóa học đăng ký:</span>
+            <span class="r-value strong">{{ registrationResult.courseName }}</span>
+          </div>
+          <div class="receipt-row">
+            <span class="r-label">Học phí dự kiến:</span>
+            <span class="r-value price">{{ formatCurrency(registrationResult.tuitionFee) }}</span>
+          </div>
+        </div>
+
+        <div class="next-step-box">
+          <h4>📌 Các bước tiếp theo:</h4>
+          <ol>
+            <li>Bộ phận tuyển sinh sẽ gọi điện hoặc gửi email xác nhận trong vòng 24h.</li>
+            <li>Sau khi xác nhận, bạn sẽ được xếp lớp và gửi thời khóa biểu chính thức.</li>
+            <li>Nếu bạn đã nhập Telegram Chat ID, bot <b>&#64;VinhndBOT</b> sẽ tự động gửi thông báo lịch học đến điện thoại của bạn.</li>
+          </ol>
+        </div>
+
+        <button nz-button nzType="primary" nzSize="large" nzBlock (click)="closeSuccessModal()" class="receipt-close-btn">
+          Đã hiểu & Hoàn tất
+        </button>
+      </div>
+    </ng-container>
+  </nz-modal>
+
+  <!-- 8. FOOTER -->
+  <footer class="portal-footer">
+    <div class="container footer-container">
+      <div class="footer-col col-brand">
+        <div class="brand-logo footer-logo">
+          <div class="logo-icon">
+            <span nz-icon nzType="book" nzTheme="outline"></span>
+          </div>
+          <div class="logo-text">
+            <span class="brand-title">TRUNG TÂM ĐÀO TẠO</span>
+            <span class="brand-subtitle">Smart Training Center Management</span>
+          </div>
+        </div>
+        <p class="footer-desc">
+          Hệ thống đào tạo nghề nghiệp và phát triển kỹ năng chất lượng cao, ứng dụng công nghệ quản trị số hóa toàn diện.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Liên Hệ Tư Vấn</h4>
+        <p><span nz-icon nzType="phone"></span> <b>Hotline:</b> 0987.654.321 / 0912.312.32</p>
+        <p><span nz-icon nzType="mail"></span> <b>Email:</b> tuyensinh&#64;trainingcenter.edu.vn</p>
+        <p><span nz-icon nzType="schedule"></span> <b>Thời gian làm việc:</b> 08:00 - 21:00 (Thứ 2 - Chủ Nhật)</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Kênh Hỗ Trợ Tự Động</h4>
+        <p>Học viên có thể kết nối ngay với Trợ lý AI và Telegram Bot:</p>
+        <a href="https://t.me/VinhndBOT" target="_blank" class="tg-footer-link">
+          <span nz-icon nzType="bell"></span> Chat với bot &#64;VinhndBOT
+        </a>
+        <div style="margin-top: 15px;">
+          <a routerLink="/auth/login" class="admin-login-link">
+            🔐 Cổng đăng nhập Cán bộ / Giảng viên
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2026 Training Center Management System. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 9. FLOATING AI CHATBOT WIDGET -->
+  <div class="chatbot-floating-wrapper">
+    <!-- Chat Window -->
+    <div class="chatbot-window" [class.open]="chatOpen">
+      <!-- Window Header -->
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="bot-avatar">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.38-1 1.72V7h2a5 5 0 0 1 5 5v1h1a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v1a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-1H3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h1v-1a5 5 0 0 1 5-5h2V5.72A2 2 0 0 1 10 4a2 2 0 0 1 2-2m-3 9a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m6 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-6 6h6v-1H9z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="bot-name">Trợ Lý AI Tuyển Sinh</div>
+            <div class="bot-status"><span class="status-indicator"></span> Trực tuyến • Hỏi về trung tâm & khóa học</div>
+          </div>
+        </div>
+        <button type="button" class="close-chat-btn" (click)="toggleChat()" title="Thu nhỏ chat">
+          ✕
+        </button>
+      </div>
+
+      <!-- Messages Area -->
+      <div id="chatbot-messages-container" class="chat-messages-container">
+        <!-- Suggested Questions List -->
+        <div class="suggestions-section" *ngIf="chatMessages.length <= 2">
+          <span class="suggestions-label">Gợi ý câu hỏi nhanh:</span>
+          <div class="suggestions-chips">
+            <button 
+              type="button" 
+              class="chip-btn" 
+              *ngFor="let q of suggestedQuestions" 
+              (click)="sendSuggestedQuestion(q)">
+              {{ q }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Chat Bubbles -->
+        <div 
+          *ngFor="let msg of chatMessages" 
+          class="chat-bubble-row" 
+          [class.user-row]="msg.role === 'user'" 
+          [class.bot-row]="msg.role === 'assistant'">
+          <div class="bot-bubble-avatar" *ngIf="msg.role === 'assistant'">
+            🤖
+          </div>
+          <div class="bubble-content">
+            <div class="bubble-text">{{ msg.text }}</div>
+            <span class="bubble-time">{{ msg.time }}</span>
+          </div>
+        </div>
+
+        <!-- Loading / Typing Indicator -->
+        <div class="chat-bubble-row bot-row" *ngIf="isSendingChat">
+          <div class="bot-bubble-avatar">🤖</div>
+          <div class="bubble-content typing-bubble">
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Input Area -->
+      <div class="chat-input-area">
+        <input 
+          type="text" 
+          [(ngModel)]="chatInput" 
+          (keyup.enter)="sendChatMessage()" 
+          [disabled]="isSendingChat" 
+          placeholder="Hỏi về khóa học, học phí, trung tâm..." 
+          class="chat-input-field" 
+        />
+        <button 
+          type="button" 
+          (click)="sendChatMessage()" 
+          [disabled]="isSendingChat || !chatInput.trim()" 
+          class="chat-send-btn" 
+          title="Gửi câu hỏi">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="chat-footer-disclaimer">
+        <span>⚡ Trợ lý AI chỉ giải đáp thông tin Trung tâm & Khóa học</span>
+      </div>
+    </div>
+
+    <!-- Floating Toggle Button -->
+    <div class="chatbot-trigger-wrapper" (click)="toggleChat()">
+      <div class="chat-floating-badge" *ngIf="!chatOpen">
+        Hỏi Trợ lý AI ngay! 👋
+      </div>
+      <button type="button" class="floating-circle-btn" [class.is-open]="chatOpen" title="Mở hộp chat tư vấn AI">
+        <svg *ngIf="!chatOpen" viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+          <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m-2 12H6v-2h12zm0-3H6V9h12zm0-3H6V6h12z"/>
+        </svg>
+        <span *ngIf="chatOpen" class="close-icon">✕</span>
+      </button>
+    </div>
+  </div>
+</div>

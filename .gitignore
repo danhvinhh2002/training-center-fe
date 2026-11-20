@@ -1,0 +1,21 @@
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Dependencies
+/node_modules
+package-lock.json
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.log
+
+# Angular cache & agents
+/.angular
+/.agents
+
+.vercel

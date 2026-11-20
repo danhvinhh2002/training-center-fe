@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Compiled files
+dist/
+tmp/
+out-tsc/
+
+# Git & Angular cache
+.git/
+.angular/
+.agents/
+
+# Logs & temp
+*.log
