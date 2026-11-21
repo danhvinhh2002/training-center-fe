@@ -14,6 +14,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { StudentService } from '../../../core/services/student.service';
 import { Student, StudentClass } from '../../../core/models/student.model';
 
@@ -35,7 +36,8 @@ import { Student, StudentClass } from '../../../core/models/student.model';
     NzInputModule,
     NzSelectModule,
     NzBadgeModule,
-    NzToolTipModule
+    NzToolTipModule,
+    NzAlertModule
   ],
   template: `
     <div class="page-container">
@@ -45,7 +47,7 @@ import { Student, StudentClass } from '../../../core/models/student.model';
           <div class="banner-text">
             <h2>Lớp Học Của Tôi</h2>
             <p *ngIf="studentProfile">
-              Xin chào <strong>{{ studentProfile.fullName }}</strong> (Mã HV: <code>{{ studentProfile.studentCode }}</code>). 
+              Xin chào <strong>{{ studentProfile.fullName }}</strong> (Mã: <code>{{ studentProfile.studentCode }}</code>). 
               Theo dõi tiến độ học tập, lịch học sắp tới và giảng viên phụ trách của từng lớp.
             </p>
             <p *ngIf="!studentProfile">Theo dõi tiến độ học tập, lịch học sắp tới và giảng viên phụ trách của từng lớp.</p>
@@ -62,6 +64,16 @@ import { Student, StudentClass } from '../../../core/models/student.model';
           </div>
         </div>
       </div>
+
+      <!-- Admin Preview Note -->
+      <nz-alert
+        *ngIf="studentProfile && studentProfile.studentCode === 'ADMIN'"
+        nzType="info"
+        nzShowIcon
+        style="margin-bottom: 20px; border-radius: 8px;"
+        nzMessage="Chế độ xem Quản trị viên (ADMIN)"
+        nzDescription="Tài khoản Quản trị viên không ghi danh lớp học. Để trải nghiệm đầy đủ giao diện thẻ lớp học, thanh tiến độ thực tế và giảng viên, bạn có thể đăng nhập bằng tài khoản học viên mẫu như: hv001 (mật khẩu: password123) hoặc học viên được tạo khi duyệt đơn đăng ký."
+      ></nz-alert>
 
       <!-- Filter bar -->
       <div class="filter-bar">

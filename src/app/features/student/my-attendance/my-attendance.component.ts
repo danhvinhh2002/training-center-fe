@@ -58,6 +58,16 @@ import { StudentClass } from '../../../core/models/student.model';
         </div>
       </div>
 
+      <!-- Admin Preview Note -->
+      <nz-alert
+        *ngIf="stats && stats.studentCode === 'ADMIN'"
+        nzType="info"
+        nzShowIcon
+        class="warning-alert"
+        nzMessage="Chế độ xem Quản trị viên (ADMIN)"
+        nzDescription="Tài khoản Quản trị viên không có dữ liệu điểm danh thực tế. Để kiểm tra bảng điểm danh từng buổi, tỷ lệ chuyên cần và thử nghiệm gửi đơn xin nghỉ phép, bạn hãy đăng nhập bằng tài khoản học viên mẫu như: hv001 / password123."
+      ></nz-alert>
+
       <!-- Absence Warning Alert -->
       <nz-alert
         *ngIf="stats && stats.absentCount >= 3"
