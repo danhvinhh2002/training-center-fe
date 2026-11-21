@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../models/api-response.model';
-import { Attendance, AttendanceStatistics, BatchAttendanceRequest } from '../models/attendance.model';
+import { Attendance, AttendanceStatistics, BatchAttendanceRequest, CreateLeaveRequest } from '../models/attendance.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +36,23 @@ export class AttendanceService {
     }
 
     return this.http.get<ApiResponse<AttendanceStatistics>>(`${this.API_URL}/statistics`, { params });
+  }
+
+  // ==================== DÀNH CHO HỌC VIÊN ====================
+
+  submitLeaveRequest(request: CreateLeaveRequest): Observable<ApiResponse<Attendance>> {
+    return this.http.post<ApiResponse<Attendance>>(`${this.API_URL}/leave-request`, request);
+  }
+
+  getMyAttendanceHistory(): Observable<ApiResponse<Attendance[]>> {
+    return this.http.get<ApiResponse<Attendance[]>>(`${this.API_URL}/me/history`);
+  }
+
+  getMyAttendanceStatistics(classId?: number): Observable<ApiResponse<AttendanceStatistics>> {
+    let params = new HttpParams();
+    if (classId) {
+      params = params.set('classId', classId.toString());
+    }
+    return this.http.get<ApiResponse<AttendanceStatistics>>(`${this.API_URL}/me/statistics`, { params });
   }
 }

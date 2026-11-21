@@ -202,7 +202,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
       if (this.authService.hasRole(RoleType.STUDENT) && !this.authService.hasAnyRole([RoleType.ADMIN, RoleType.MANAGER, RoleType.TEACHER])) {
-        this.router.navigate(['/schedules']);
+        this.router.navigate(['/my-classes']);
       } else {
         this.router.navigate(['/dashboard']);
       }
@@ -237,7 +237,7 @@ export class LoginComponent implements OnInit {
         const fullName = response.user?.fullName || response.data?.fullName || 'Người dùng';
         this.msg.success(`Chào mừng trở lại, ${fullName}!`);
         const isStudentOnly = this.authService.hasRole(RoleType.STUDENT) && !this.authService.hasAnyRole([RoleType.ADMIN, RoleType.MANAGER, RoleType.TEACHER]);
-        const targetUrl = (this.returnUrl === '/dashboard' && isStudentOnly) ? '/schedules' : this.returnUrl;
+        const targetUrl = (this.returnUrl === '/dashboard' && isStudentOnly) ? '/my-classes' : this.returnUrl;
         this.router.navigateByUrl(targetUrl);
       },
       error: (err) => {

@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ApiResponse, PageResponse } from '../models/api-response.model';
-import { CreateStudentRequest, Student, StudentStatus, UpdateStudentRequest } from '../models/student.model';
+import { CreateStudentRequest, Student, StudentClass, StudentStatus, UpdateStudentRequest } from '../models/student.model';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +52,19 @@ export class StudentService {
     return this.http.patch<ApiResponse<Student>>(`${this.API_URL}/${id}/status`, null, {
       params: { status }
     });
+  }
+
+  // ==================== DÀNH CHO HỌC VIÊN ====================
+
+  getMyProfile(): Observable<ApiResponse<Student>> {
+    return this.http.get<ApiResponse<Student>>(`${this.API_URL}/me`);
+  }
+
+  getMyClasses(): Observable<ApiResponse<StudentClass[]>> {
+    return this.http.get<ApiResponse<StudentClass[]>>(`${this.API_URL}/me/classes`);
+  }
+
+  getMyUpcomingSchedules(): Observable<ApiResponse<any[]>> {
+    return this.http.get<ApiResponse<any[]>>(`${this.API_URL}/me/upcoming-schedules`);
   }
 }

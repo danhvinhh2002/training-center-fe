@@ -82,6 +82,20 @@ export class SidebarComponent {
       route: '/dashboard',
       roles: [RoleType.ADMIN, RoleType.MANAGER, RoleType.TEACHER, RoleType.ACCOUNTANT]
     },
+    // ================= DÀNH CHO HỌC VIÊN =================
+    {
+      title: 'Lớp học của tôi',
+      icon: 'appstore',
+      route: '/my-classes',
+      roles: [RoleType.STUDENT, RoleType.ADMIN]
+    },
+    {
+      title: 'Chuyên cần & Nghỉ phép',
+      icon: 'check-circle',
+      route: '/my-attendance',
+      roles: [RoleType.STUDENT, RoleType.ADMIN]
+    },
+    // ================= DÀNH CHO QUẢN TRỊ & GIẢNG VIÊN =================
     {
       title: 'Quản lý Học viên',
       icon: 'user',
@@ -123,25 +137,7 @@ export class SidebarComponent {
       icon: 'check-square',
       route: '/attendance',
       roles: [RoleType.ADMIN, RoleType.MANAGER, RoleType.TEACHER]
-    },
-    // {
-    //   title: 'Hóa đơn học phí',
-    //   icon: 'file-text',
-    //   route: '/invoices',
-    //   roles: [RoleType.ADMIN, RoleType.ACCOUNTANT, RoleType.STUDENT]
-    // },
-    // {
-    //   title: 'Lịch sử thanh toán',
-    //   icon: 'dollar',
-    //   route: '/payments',
-    //   roles: [RoleType.ADMIN, RoleType.ACCOUNTANT, RoleType.STUDENT]
-    // },
-    // {
-    //   title: 'Báo cáo thống kê',
-    //   icon: 'bar-chart',
-    //   route: '/reports',
-    //   roles: [RoleType.ADMIN, RoleType.MANAGER, RoleType.ACCOUNTANT]
-    // }
+    }
   ];
 
   constructor(

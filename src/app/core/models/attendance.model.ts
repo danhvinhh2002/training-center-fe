@@ -19,6 +19,16 @@ export interface Attendance {
     studentCode: string;
     fullName: string;
   };
+  classId?: number;
+  classCode?: string;
+  className?: string;
+  sessionNumber?: number;
+  studyDate?: string;
+  startTime?: string;
+  endTime?: string;
+  room?: string;
+  teacherName?: string;
+  topic?: string;
 }
 
 export interface AttendanceItemRequest {
@@ -44,4 +54,9 @@ export interface AttendanceStatistics {
   lateCount: number;
   excusedCount: number;
   attendanceRate: number;
+}
+
+export interface CreateLeaveRequest {
+  scheduleId: number;
+  reason: string;
 }

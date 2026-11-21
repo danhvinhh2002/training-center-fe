@@ -41,6 +41,26 @@ export const routes: Routes = [
         canActivate: [roleGuard],
         data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_TEACHER', 'ROLE_ACCOUNTANT'] },
       },
+      // ================= DÀNH CHO HỌC VIÊN =================
+      {
+        path: 'my-classes',
+        loadComponent: () =>
+          import('./features/student/my-classes/my-classes.component').then(
+            (m) => m.MyClassesComponent
+          ),
+        canActivate: [roleGuard],
+        data: { roles: ['ROLE_STUDENT', 'ROLE_ADMIN'] },
+      },
+      {
+        path: 'my-attendance',
+        loadComponent: () =>
+          import('./features/student/my-attendance/my-attendance.component').then(
+            (m) => m.MyAttendanceComponent
+          ),
+        canActivate: [roleGuard],
+        data: { roles: ['ROLE_STUDENT', 'ROLE_ADMIN'] },
+      },
+      // ================= QUẢN TRỊ TRUNG TÂM =================
       {
         path: 'students',
         loadComponent: () =>

@@ -366,6 +366,9 @@ export class DashboardComponent implements OnInit {
         if (d.recentActivities && d.recentActivities.length > 0) {
           this.recentActivities = d.recentActivities;
         }
+      },
+      error: () => {
+        // Giữ dữ liệu thống kê mặc định nếu backend chưa có endpoint dashboard stats
       }
     });
   }
